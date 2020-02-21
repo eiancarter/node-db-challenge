@@ -1,0 +1,23 @@
+{
+  "name": "db-challenge",
+  "version": "1.0.0",
+  "description": "Sprint Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eiancarter/node-db-challenge.git"
+  },
+  "author": "Eian Carter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eiancarter/node-db-challenge/issues"
+  },
+  "homepage": "https://github.com/eiancarter/node-db-challenge#readme",
+  "dependencies": {
+    "knex": "^0.20.10",
+    "sqlite3": "^4.1.1"
+  }
+}
