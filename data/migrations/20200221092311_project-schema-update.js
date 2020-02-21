@@ -1,7 +1,6 @@
-
 exports.up = function(knex) {
-  return knex.schema
-    .createTable('projects', tbl => {
+    return knex.schema
+      .createTable('projects', tbl => {
         tbl.increments();
         tbl.text('project_name', 128)
             .unique()
@@ -11,8 +10,8 @@ exports.up = function(knex) {
         tbl.boolean('completed')
             .defaultTo(false)
             .notNullable();
-    })
-    .createTable('tasks', tbl => {
+      })
+      .createTable('tasks', tbl => {
         tbl.increments();
         tbl.integer('task_number')
             .unsigned()
@@ -31,18 +30,43 @@ exports.up = function(knex) {
             .inTable('projects')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
-    })
-    .createTable('resources', tbl => {
+      })
+      .createTable('resources', tbl => {
         tbl.increments();
         tbl.string('name', 128)
             .notNullable();
         tbl.text('description')
             .notNullable();
-    })
-};
+      })
 
-exports.down = function(knex) {
-  return knex.schema
-    .dropTableIfExists('tasks')
-    .dropTableIfExists('projects')
-};
+      .createTable('project_resources', tbl => {
+        tbl.increments();
+        tbl.string('name', 128)
+        tbl
+        .integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('projects')
+        .onUpdate('CASCADE')
+        .onDelete('RESTRICT');
+
+        tbl
+            .integer('resource_id')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('resources')
+            .onUpdate('CASCADE')
+            .onDelete('RESTRICT')
+        tbl.unique(['project_id', 'resource_id']);
+      })
+  };
+  
+  exports.down = function(knex) {
+    return knex.schema
+      .dropTableIfExists('tasks')
+      .dropTableIfExists('projects')
+      .dropTableIfExists('resources')
+  };
+  
